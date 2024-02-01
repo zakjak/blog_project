@@ -8,6 +8,7 @@ import NavbarLinks from './NavbarLinks';
 
 function NavbarComponent() {
     const { theme } = useSelector(state => state.theme)
+    const { currentUser } = useSelector(state => state.user)
     
     const  dispatch = useDispatch()
 
@@ -24,17 +25,25 @@ function NavbarComponent() {
         </form>
         <div className="flex gap-2">
             <Button
-                className=' text-black ]e'
+                className=' text-black flex'
                 gradientDuoTone='purpleToPink'
                 onClick={() => dispatch(toggleTheme())}
             >
                 {theme === 'light' ? <FaSun /> : <FaMoon />}
             </Button>
-            <Link className='m marker:' to='/sign-in'>
-                <Button gradientDuoTone='purpleToPink'>
-                    Sign in
-                </Button>
-            </Link>
+            {
+                currentUser ? (
+                    <div className='w-12 h-12 rounded-full bg-gray-400'>
+                        <img className='w-full h-full object-cover' src={currentUser.profilePicture} alt="" />
+                    </div>
+                ) : (
+                    <Link className='m marker:' to='/sign-in'>
+                        <Button gradientDuoTone='purpleToPink'>
+                            Sign in
+                        </Button>
+                    </Link>
+                )
+            }
         </div>
     </Navbar>
   )
