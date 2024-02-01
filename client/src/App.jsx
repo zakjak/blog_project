@@ -4,6 +4,7 @@ import NavbarComponent from './components/Navbar'
 import NavbarLinks from './components/NavbarLinks'
 import Footer from './components/Footer'
 import SignIn from './pages/SignIn'
+import SignUp from './pages/SignUp'
 
 function App() {
 
@@ -14,6 +15,7 @@ function App() {
     <Routes>
       <Route path='/' element={<Home />} />
       <Route path='/sign-in' element={<SignIn />} />
+      <Route path='/sign-up' element={<SignUp />} />
     </Routes>
     <Footer />
     </>
