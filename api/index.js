@@ -2,6 +2,9 @@ import express from 'express'
 import dotenv from 'dotenv'
 import bodyParser from 'body-parser'
 import cors from 'cors'
+import cookieParser from 'cookie-parser'
+import authRoutes from './routes/auth.route.js'
+import mongoose from 'mongoose'
 
 const app = express()
 
@@ -10,10 +13,17 @@ dotenv.config()
 app.use(cors())
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({extended: true}))
+app.use(cookieParser())
 
 // Routes
-app.use('/api/user', )
+app.use('/api/auth', authRoutes)
 
+
+// Database connection
+mongoose.connect(process.env.MONGO_URL)
+.then(() => {
+    console.log('Database connected')
+})
 
 
 app.listen(3000, () => {
