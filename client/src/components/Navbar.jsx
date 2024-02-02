@@ -50,7 +50,7 @@ function NavbarComponent() {
             {
                 currentUser ? (
                     <div>
-                    <Dropdown className='w-[15em]' label='' renderTrigger={() => <img className='w-10 h-10 cursor-pointer'  src={currentUser.profilePicture} />}>
+                    <Dropdown className='w-[15em]' label='' renderTrigger={() => <img className='w-10 h-10 cursor-pointer rounded-full'  src={currentUser.profilePicture} />}>
                         <div className='p-4 text-xl'>
                             {currentUser.username}
                         </div>

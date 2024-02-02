@@ -40,7 +40,7 @@ export const signin = async (req, res, next) => {
 
     try{
         const isValid = await User.findOne({email})
-        if(!isValid){
+        if(isValid){
             return next(errorHandler(403, "User does not exist."))
         }
         
@@ -57,4 +57,57 @@ export const signin = async (req, res, next) => {
     }catch(err){
         next(err)
     }
+}
+
+export const googleSign = async (req, res, next) => {
+    const {username, profilePicture, email } = req.body
+
+    if(!username || 
+        !profilePicture || 
+        !email || username === '' || 
+        profilePicture === '' ||
+        email === ''){
+            return next(errorHandler(403, "Fields can't be empty"))
+        }
+
+        try{
+            const isValid = await User.findOne({ email })
+
+        if(isValid){
+            const {password, ...rest} = isValid
+
+            const token = jwt.sign({ id: isValid._id, isAdmin: isValid.isAdmin }, process.env.JWT_SECRET)
+
+            res.status(200).cookie('token', token, {
+                httpOnly: true
+            }).json(rest)
+
+        }else{
+            const generatePassword = Math.random().toString(36).slice(-8) + Math.random().toString(36).slice(-8)
+
+            const hashPassword = bcrypt.hashSync(generatePassword, 10)
+
+            const newUser = new User({
+                username,
+                profilePicture,
+                email, 
+                password: hashPassword
+            })
+
+            const user = await newUser.save()
+
+            const {password, ...rest} = user._doc
+
+            const token = jwt.sign({ id: user._id, isAdmin: user.isAdmin }, process.env.JWT_SECRET)
+
+            res.status(200).cookie('token', token, {
+                httpOnly: true
+            }).json(rest)
+
+            res.status(200).json(user)
+        } 
+
+        }catch(err){
+            next(err)
+        }
 }
