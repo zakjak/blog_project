@@ -74,7 +74,7 @@ export const googleSign = async (req, res, next) => {
             const isValid = await User.findOne({ email })
 
         if(isValid){
-            const {password, ...rest} = isValid
+            const {password, ...rest} = isValid._doc
 
             const token = jwt.sign({ id: isValid._id, isAdmin: isValid.isAdmin }, process.env.JWT_SECRET)
 
@@ -104,7 +104,6 @@ export const googleSign = async (req, res, next) => {
                 httpOnly: true
             }).json(rest)
 
-            res.status(200).json(user)
         } 
 
         }catch(err){
