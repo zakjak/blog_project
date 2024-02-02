@@ -1,9 +1,9 @@
 import { Button, Label, TextInput } from 'flowbite-react'
 import { Link, useNavigate } from 'react-router-dom'
-import { FaGoogle } from 'react-icons/fa'
 import { useState } from 'react'
 import { useDispatch } from 'react-redux'
 import { signInStart, signInSuccessful, signInFailure } from '../redux/user/userSlice'
+import Oauth from '../components/Oauth'
 
 function SignIn() {
     const [userData, setUserData] = useState({})
@@ -53,10 +53,8 @@ function SignIn() {
                     <TextInput onChange={handleChange} type='password' id='password'  required />
                     <Button type='submit'>Login</Button>
                     <span className='text-gray-400 text-sm'>Don't have an account? <Link to='/sign-up' className='text-lg hover:underline text-white'>Sign up</Link></span>
-                    <span className='text-center'>or sign up with</span>
-                    <Button>
-                        <FaGoogle className='text-lg' />
-                    </Button>
+                    <span className='text-center'>or sign in with</span>
+                    <Oauth />
                 </div>
             </div>
         </form>

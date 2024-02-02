@@ -6,6 +6,7 @@ import { useState } from 'react'
 
 
 function SignUp() {
+    
     const [userData, setUserData] = useState({})
     const navigate = useNavigate()
     const [error, setError] = useState(null)
@@ -37,6 +38,8 @@ function SignUp() {
         }
     }
 
+    
+
   return (
         <form className='min-h-screen w-full flex flex-col items-center justify-center' onSubmit={handleSubmit}>
             <div className="w-[35%] p-4 shadow-md bg-gray-800 rounded-lg flex flex-col gap-4">
@@ -52,9 +55,6 @@ function SignUp() {
                     <Button type='submit'>Sign up</Button>
                     <span className='text-gray-400 text-sm'>Do you have an account? <Link to='/sign-in' className='text-lg hover:underline text-white'>Sign in</Link></span>
                     <span className='text-center'>or sign up with</span>
-                    <Button>
-                        <FaGoogle className='text-lg' />
-                    </Button>
                 </div>
             </div>
         </form>
