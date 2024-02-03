@@ -4,25 +4,89 @@ import { useState } from 'react';
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
 import { IoIosClose } from "react-icons/io";
+import { getDownloadURL, getStorage, ref, uploadBytes, uploadBytesResumable } from 'firebase/storage'
+import app from '../firebase';
+import { useNavigate } from 'react-router-dom'
+
 
 function CreatePost() {
     const { currentUser } = useSelector(state=> state.user)
-    const [input, setInput] = useState('')
     const [formData, setFormData] = useState({})
     const [fileInput, setFileInput] = useState(null)
+
+    const navigate = useNavigate()
     
     const handleImageChange = (e) => {
         const file = e.target.files[0]
+        const fileName = file.name + new Date().getTime() 
+        const storage = getStorage(app);
 
-        if(file){
-            const reader = new FileReader()
+        const metadata = {
+            contentType: 'image/jpeg'
+          };
 
-            reader.onload = () => {
-                setFileInput(reader.result)
-            }
-            reader.readAsDataURL(file)
+        const storageRef = ref(storage, fileName)
+
+
+        const uploadTask = uploadBytesResumable(storageRef, file, metadata)
+
+        uploadTask.on('state_change', (snapshot) => {
+            console.log('Uploaded')
+        }, (err) => {
+            console.log(err)
+        }, 
+        () => {
+            getDownloadURL(uploadTask.snapshot.ref)
+            .then((downloadUrl) => {
+                if(downloadUrl){
+                    setFileInput(downloadUrl)
+                }
+            })
         }
+        )
+
     }
+
+    const handleChange = (e) => {
+        setFormData({ ...formData, [e.target.id]: e.target.value  })
+    }
+
+    const handleSubmit = async (e) => {
+        e.preventDefault()
+
+      
+        const data ={
+            ...formData,
+            image: fileInput
+        }
+
+        console.log(currentUser._id)
+
+        if(!fileInput || fileInput === ''){
+            return
+        }
+        try{
+            const res = await fetch('/api/post/create', {
+                method: 'POST',
+                headers: {"Content-Type": 'application/json'},
+                body: JSON.stringify(data)
+            })
+            
+            if(res.ok){
+                navigate(`/profile/${currentUser._id}`)
+            }
+        }catch(err){
+            console.log(err)
+        }
+
+    }
+    
+    const onClose = () => {
+        setFileInput(null)
+        setFormData({...formData, fileInput})
+    }
+
+    console.log(fileInput)
 
   return (
     <div className='w-full grid grid-cols-1 min-h-screen md:grid-cols-2'>
@@ -34,16 +98,16 @@ function CreatePost() {
             <p>{currentUser.email}</p>
         </div>
         <div className="p-10">
-            <form className=''>
+            <form onSubmit={handleSubmit} className=''>
                 <div className="">
                     <Label htmlFor='title:' value='Title:' />
-                    <TextInput required type='text' placeholder='Enter title...' />
+                    <TextInput id='title' onChange={handleChange} required type='text' placeholder='Enter title...' />
                 </div>
                 <div className="">
                     <Label htmlFor='image' value='Image:'  />
                     {
                         !fileInput && (
-                            <TextInput type='file' onChange={handleImageChange}  />
+                            <TextInput id='fileInput' type='file' onChange={handleImageChange}  />
                         )
                     }
                     {
@@ -53,7 +117,7 @@ function CreatePost() {
                                 <span 
                                 className="absolute z-50 top-2 right-2 cursor-pointer 
                                 rounded-full overflow-hidden"
-                                onClick={() => setFileInput(null)}
+                                onClick={onClose}
                                 >
                                     <IoIosClose className='text-4xl bg-black' />
                                 </span>
@@ -64,7 +128,7 @@ function CreatePost() {
                 </div>
                 <div className="">
                         <Label htmlFor='category:' value='Category' />
-                        <Select id='category' required>
+                        <Select id='category' onChange={handleChange} required defaultValue='sports'>
                             <option value="sports">Sports</option>
                             <option value="politics">Politics</option>
                             <option value="entertainment">Entertainment</option>
@@ -75,7 +139,7 @@ function CreatePost() {
                     <Label htmlFor='content' value='content'  />
                     <ReactQuill onChange={(val) => setFormData({...formData, content: val})} theme='snow' className='h-[calc(20rem-4.5rem)] w-full' />
                 </div>
-                <Button className='mt-'>Submit</Button>
+                <Button type='submit' className='mt-'>Submit</Button>
             </form>
         </div>
     </div>
