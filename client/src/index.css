@@ -13,3 +13,9 @@ li{
 .article p {
     margin-bottom: 10px;
 }
+
+.article ul li a strong{
+    color: blue;
+    font-size: small;
+    font-weight: 500;
+}

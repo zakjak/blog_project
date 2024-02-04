@@ -8,6 +8,10 @@ import SignUp from './pages/SignUp'
 import Profile from './pages/Profile'
 import CreatePost from './pages/CreatePost'
 import Article from './pages/Article'
+import Sports from './pages/Sports'
+import Politics from './pages/Politics'
+import Entertainment from './pages/Entertainment'
+import Business from './pages/Business'
 
 function App() {
 
@@ -21,6 +25,10 @@ function App() {
         <Route path='/sign-up' element={<SignUp />} />
         <Route path='/profile/:id' element={<Profile />} />
         <Route path='/create' element={<CreatePost />} />
+        <Route path='/sports' element={<Sports />} />
+        <Route path='/business' element={<Business />} />
+        <Route path='/entertainment' element={<Entertainment />} />
+        <Route path='/politics' element={<Politics />} />
         <Route path='/article/:id' element={<Article />} />
     </Routes>
     <Footer />

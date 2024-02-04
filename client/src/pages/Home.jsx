@@ -19,8 +19,6 @@ function Home() {
     fetchData()
   }, [])
 
-  console.log(posts)
-
   return (
     <div className='min-h-screen'>
       <TopArticles posts={posts} />

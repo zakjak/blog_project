@@ -43,6 +43,7 @@ export const getPost = async (req, res, next) => {
 
             }else{
 
+                if(Array.isArray(category)){
                     let categories = []
                     for(let i = 0; i < category.length; i++){
                         const response = await Post.find({
@@ -53,6 +54,16 @@ export const getPost = async (req, res, next) => {
                     }
 
                     res.status(200).json(categories)
+                }else{
+                    console.log(category)
+                        const response = await Post.find({
+                            category
+                        }).sort({updatedAt: sortDirection}).skip(start).limit(limits)
+                        
+
+                    res.status(200).json(response)
+                }
+
             }
 
         }catch(err){
