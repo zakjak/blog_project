@@ -5,3 +5,11 @@
 li{
     list-style: none;
 }
+
+.article {
+    margin-top: 5px;
+    text-align: justify;
+}
+.article p {
+    margin-bottom: 10px;
+}

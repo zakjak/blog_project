@@ -7,6 +7,7 @@ import SignIn from './pages/SignIn'
 import SignUp from './pages/SignUp'
 import Profile from './pages/Profile'
 import CreatePost from './pages/CreatePost'
+import Article from './pages/Article'
 
 function App() {
 
@@ -20,6 +21,7 @@ function App() {
         <Route path='/sign-up' element={<SignUp />} />
         <Route path='/profile/:id' element={<Profile />} />
         <Route path='/create' element={<CreatePost />} />
+        <Route path='/article/:id' element={<Article />} />
     </Routes>
     <Footer />
     </>

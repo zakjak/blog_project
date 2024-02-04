@@ -23,26 +23,39 @@ export const createPost = async (req, res, next) => {
 export const getPost = async (req, res, next) => {
     const { title, content, startIndex, order, searchTerm, category, postId, limit } = req.query
 
-    console.log()
-
     const start = parseInt(startIndex) || 0
     const limits = parseInt(limit) || 9
     const sortDirection = order  === 'asc' ? 1 : -1
     try{
-        const getPost = await  Post.find({
-            ...(title && {title}),
-            ...(category && {category}),
-            ...(postId && {postId}),
-            ...(searchTerm && {
-                $or: [
-                    {title: {$regex: title, $options: 'i'}},
-                    {content: {$regex: content, $options: 'i'}}
-                ]
-            })
-        }).sort({updatedAt: sortDirection}).skip(start).limit(limits)
+            if(!category){
+                const getPost = await  Post.find({
+                    ...(title && {title}),
+                    ...(postId && {_id: postId}),
+                    ...(searchTerm && {
+                        $or: [
+                            {title: {$regex: title, $options: 'i'}},
+                            {content: {$regex: content, $options: 'i'}}
+                        ]
+                    })
+                }).sort({updatedAt: sortDirection}).skip(start).limit(limits)
+                
+                res.status(200).json(getPost)
 
-        res.status(200).json(getPost)
-    }catch(err){
-        next(err)
-    }
+            }else{
+
+                    let categories = []
+                    for(let i = 0; i < category.length; i++){
+                        const response = await Post.find({
+                            category: category[i]
+                        }).sort({updatedAt: sortDirection}).skip(start).limit(limits)
+                        
+                        categories.push(...response)
+                    }
+
+                    res.status(200).json(categories)
+            }
+
+        }catch(err){
+            next(err)
+        }
 }
