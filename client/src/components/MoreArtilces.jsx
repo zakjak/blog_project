@@ -12,7 +12,6 @@ function MoreArtilces() {
         const res = await fetch(`/api/post/getPost?limit=9`)
         const data = await res.json()
 
-        console.log(data)
       if(res.ok){
         setPosts(data)
       }  
@@ -32,7 +31,6 @@ function MoreArtilces() {
     const res = await fetch(`api/post/getPost?startIndex=${searchQuery}&limit=4`)
         const data = await res.json()
 
-        console.log(data)
       // if(res.ok){
       //   setPosts({...posts, data})
       // }  

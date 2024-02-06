@@ -98,13 +98,15 @@ function CreatePost() {
             <p>{currentUser.email}</p>
         </div>
         <div className="p-10">
-            <form onSubmit={handleSubmit} className=''>
-                <div className="">
-                    <Label htmlFor='title:' value='Title:' />
+            <form onSubmit={handleSubmit} className='flex flex-col gap-2'>
+                <div className="flex flex-col gap-2">
+                    <Label htmlFor='title' value='Title:' />
                     <TextInput id='title' onChange={handleChange} required type='text' placeholder='Enter title...' />
+                    <Label htmlFor='owner' value='Owner:' />
+                    <TextInput id='owner' onChange={handleChange} required type='text' placeholder='Enter fullname...' />
                 </div>
-                <div className="">
-                    <Label htmlFor='image' value='Image:'  />
+                <div className="flex flex-col gap-2">
+                    <Label htmlFor='image' value='Image:' className=''   />
                     {
                         !fileInput && (
                             <TextInput id='fileInput' type='file' onChange={handleImageChange}  />
@@ -126,8 +128,8 @@ function CreatePost() {
                     }
 
                 </div>
-                <div className="">
-                        <Label htmlFor='category:' value='Category' />
+                <div className="flex items-center gap-2">
+                        <Label htmlFor='category' value='Category:' />
                         <Select id='category' onChange={handleChange} required defaultValue='sports'>
                             <option value="sports">Sports</option>
                             <option value="politics">Politics</option>
@@ -135,8 +137,8 @@ function CreatePost() {
                             <option value="business">Business</option>
                         </Select>
                 </div>
-                <div className="h-[20rem]">
-                    <Label htmlFor='content' value='content'  />
+                <div className="h-[20rem] flex flex-col gap-2">
+                    <Label htmlFor='content' value='Content:'  />
                     <ReactQuill onChange={(val) => setFormData({...formData, content: val})} theme='snow' className='h-[calc(20rem-4.5rem)] w-full' />
                 </div>
                 <Button type='submit' className='mt-'>Submit</Button>
