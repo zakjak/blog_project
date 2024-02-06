@@ -4,8 +4,8 @@ import { useLocation } from 'react-router-dom'
 
 function Politics() {
     const [posts, setPosts] = useState([])
-    const location = useLocation()
-    const category = location.pathname.split('/')[1]
+    const { pathname } = useLocation()
+    const category = pathname.split('/')[1]
     
   useEffect(() => {
 
@@ -21,7 +21,7 @@ function Politics() {
   }, [category])
 
   return (
-    <div className='min-h-screen'>
+    <div className='min-h-screen  w-[70%] mx-auto'>
         <TopArticles posts={posts} />
     </div>
   )

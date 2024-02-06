@@ -21,7 +21,7 @@ function Business() {
     }, [category])
 
   return (
-    <div className='min-h-screen'>
+    <div className='min-h-screen  w-[70%] mx-auto'>
         <TopArticles posts={posts} />
     </div>
   )

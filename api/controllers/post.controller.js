@@ -1,4 +1,5 @@
 import Post from "../models/post.model.js"
+import { errorHandler } from "../utils/error.js"
 
 export const createPost = async (req, res, next) => {
     const { title, image, category, content } = req.body
@@ -68,4 +69,26 @@ export const getPost = async (req, res, next) => {
         }catch(err){
             next(err)
         }
+}
+
+export const postViews = async (req, res, next) => {
+    const { postId } = req.params
+
+    console.log(postId)
+
+    if(!postId || postId === '' || postId === undefined){
+        return
+    }
+    try{
+        const post = await Post.findByIdAndUpdate(postId, {$inc: {views: 1} })
+
+        // if(!post){
+        //     next(errorHandler(404, 'Post not found'))
+        // }
+        
+        // await post.save()
+        res.status(200).json(post)
+    }catch(err){
+        next(err)
+    }
 }

@@ -12,7 +12,7 @@ function NavbarLinks() {
 
     }, [location.pathname])
   return (
-    <Navbar className='w-full  bg-black dark:bg-gray-500'>
+    <Navbar className='w-full sticky top-[4rem] z-40 bg-black dark:bg-gray-500 overflow-scroll md:overflow-hidden'>
         <div className="w-full flex justify-center gap-4">
             <Navbar.Link className={`text-white dark:text-white 
             ${tab === '/' && 'underline'}`} href='/'>

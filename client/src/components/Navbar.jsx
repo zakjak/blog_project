@@ -29,7 +29,7 @@ function NavbarComponent() {
     }
 
   return (
-    <Navbar className='w-full h-16 shadow-md flex items-center'>
+    <Navbar className='w-full sticky top-0 z-50 h-16 shadow-md flex items-center'>
         <Navbar.Brand as={Link} to='/'>
             Gh Media
         </Navbar.Brand>
@@ -50,7 +50,7 @@ function NavbarComponent() {
             {
                 currentUser ? (
                     <div>
-                    <Dropdown className='w-[15em]' label='' renderTrigger={() => <img className='w-10 h-10 cursor-pointer rounded-full'  src={currentUser.profilePicture} />}>
+                    <Dropdown className='w-[15em] -z-50' label='' renderTrigger={() => <img className='w-10 h-10 cursor-pointer rounded-full'  src={currentUser.profilePicture} />}>
                         <div className='p-4 text-xl'>
                             {currentUser.username}
                         </div>

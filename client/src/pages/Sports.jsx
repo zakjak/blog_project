@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import TopArticles from '../components/TopArticles'
 import { useLocation } from 'react-router-dom'
+import MoreArtilces from '../components/MoreArtilces'
 
 function Sports() {
     const [posts, setPosts] = useState([])
@@ -21,7 +22,7 @@ function Sports() {
   }, [category])
 
   return (
-    <div className='min-h-screen'>
+    <div className='min-h-screen  w-[70%] mx-auto'>
         <TopArticles posts={posts} />
     </div>
   )

@@ -18,22 +18,31 @@ function Article() {
     }, [id])
 
   return (
-    <div className='w-[70%] min-h-screen mx-auto'>
+    <div className='w-[60%] min-h-screen mx-auto'>
         <div className="pt-8 flex flex-col gap-2">
-            <h1 className='text-3xl'>{article.title}</h1>
-            <div className="flex items-center text-gray-400 gap-1 text-xs">
-                <div className='flex items-center gap-1'>
-                    <span className='text-lg'><MdOutlineAccessTime /></span>
-                    <span>{moment(article.createdAt).fromNow()}</span>
+            <div className='w-[90%] mx-auto flex flex-col gap-4'>
+                <h1 className='lg:text-3xl  text-xl md:text-2xl'>{article.title}</h1>
+                <div className="flex items-center text-gray-400 gap-2 text-xs">
+                    <div className='flex items-center gap-1'>
+                        <span className='text-lg'><MdOutlineAccessTime /></span>
+                        <span>{moment(article.createdAt).fromNow()}</span>
+                    </div>
+                    {
+                        article.views > 0 && (
+                    <>
+                    <hr className='h-4 border-[.2px] border-gray-400' />
+                    <div className='flex items-center gap-2'>
+                        <span className='text-lg'><FaRegEye /></span>
+                        <span className=''>{`${article.views} reads`}</span>
+                    </div>
+                    </>
+                        )
+                    }
                 </div>
-                <hr className='h-4 border-[.2px] border-gray-400' />
-                <div className='flex items-center gap-2'>
-                    <span className='text-lg'><FaRegEye /></span>
-                    <span className=''>{`${article.views} reads`}</span>
-                </div>
+                <hr className='opacity-30 mb-4' /> 
             </div>
-            <div className="w-full rounded-md overflow-hidden">
-                <img className='w-full h-[30rem] object-cover' src={article.image} alt={article.title} />
+            <div className="w-[95%] h-[30rem] rounded-md overflow-hidden shadow-2xl">
+                <img className='w-full h-full object-cover' src={article.image} alt={article.title} />
             </div>
             <article dangerouslySetInnerHTML={{__html: article.content}} className='article'></article>
         </div>

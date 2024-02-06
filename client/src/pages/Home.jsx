@@ -3,7 +3,6 @@ import MoreArtilces from '../components/MoreArtilces';
 import { useEffect, useState } from 'react';
 
 function Home() {
-
   const [posts, setPosts] = useState([])
 
   useEffect(() => {
@@ -19,8 +18,10 @@ function Home() {
     fetchData()
   }, [])
 
+  
+
   return (
-    <div className='min-h-screen'>
+    <div className='min-h-screen w-[70%] mx-auto'>
       <TopArticles posts={posts} />
       <MoreArtilces />
     </div>
