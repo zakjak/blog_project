@@ -5,6 +5,7 @@ import { MdOutlineAccessTime } from 'react-icons/md'
 import { FaRegEye } from "react-icons/fa"
 import { CiShare2 } from "react-icons/ci";
 import CommentSection from '../components/CommentSection'
+import { formatCount } from '../lib/Common'
  
 function Article() {
     const { id } = useParams()
@@ -41,7 +42,7 @@ function Article() {
                                         <hr className='h-4 border-[.2px] border-gray-400' />
                                         <div className='flex items-center gap-2'>
                                             <span className='text-lg'><FaRegEye /></span>
-                                            <span className=''>{`${article.views} ${article > 1 ? 'read' : 'reads'}`}</span>
+                                            <span className=''>{`${formatCount(article.views)} ${article > 1 ? 'read' : 'reads'}`}</span>
                                         </div>
                                     </div>
                                         </>

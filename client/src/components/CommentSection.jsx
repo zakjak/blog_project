@@ -2,11 +2,26 @@ import React, { useEffect, useState } from 'react'
 import { Button, Textarea } from 'flowbite-react'
 import { useSelector } from 'react-redux'
 import Comment from './Comment'
+import { formatCount } from '../lib/Common'
 
 function CommentSection({ postId }) {
     const [comment, setComment] = useState('')
     const { currentUser } = useSelector(state => state.user)
     const [comments, setComments] = useState([])
+
+    const getComments = async () => {
+        try{
+            const res = await fetch(`/api/comment/getComments/${postId}`)
+            const data = await res.json()
+
+            if(res.ok){
+                setComments(data)
+            }
+        }catch(err){
+            console.log(err)
+        }
+
+    }
 
     const submitComment = async (e) => {
         e.preventDefault()
@@ -24,37 +39,15 @@ function CommentSection({ postId }) {
         const data = await res.json()
         if(res.ok){
             setComment('')
-            setComments([data, ...comments])
+            getComments()
         }
+
+       
     }
 
     useEffect(() => {
-        const getComments = async () => {
-            try{
-                const res = await fetch(`/api/comment/getComments/${postId}`)
-                const data = await res.json()
-
-                if(res.ok){
-                    setComments(data)
-                }
-            }catch(err){
-                console.log(err)
-            }
-
-        }
         getComments()
     }, [postId])
-
-    const formatCount = (count) => {
-        if(count >= 1000000){
-            return (count / 1000000).toFixed(1) + 'M'
-        }else if (count >= 1000){
-            return (count / 1000).toFixed(1) + 'K'
-        }else{
-            return count?.toString()
-        }
-    }
-
 
   return (
     <div className='w-[85%] mx-auto mb-4'>

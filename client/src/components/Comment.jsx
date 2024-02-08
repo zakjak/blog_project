@@ -18,7 +18,7 @@ function Comment({ comments }) {
     }, [])
 
   return (
-    <div className='flex mb-2 justify-between'>
+    <div className='flex mb-2 justify-between items-center'>
         <div className="flex items-center gap-2">
             <div className="w-10 h-10 rounded-full overflow-hidden">
                 <img src={user.profilePicture} alt="" />
