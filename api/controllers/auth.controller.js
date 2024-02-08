@@ -40,7 +40,7 @@ export const signin = async (req, res, next) => {
 
     try{
         const isValid = await User.findOne({email})
-        if(isValid){
+        if(!isValid){
             return next(errorHandler(403, "User does not exist."))
         }
         

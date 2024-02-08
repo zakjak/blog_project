@@ -17,8 +17,6 @@ function Oauth() {
         try{
             const { user } = await signInWithPopup(auth, provider)
 
-            console.log(user.email)
-
             const userInfo = {
                 username: user.displayName,
                     profilePicture: user.photoURL,
@@ -32,7 +30,6 @@ function Oauth() {
             })
 
             const data = await res.json()
-            console.log(data)
             if(res.ok){
                 dispatch(signInSuccessful(data))
                 navigate('/')

@@ -102,8 +102,8 @@ function CreatePost() {
                 <div className="flex flex-col gap-2">
                     <Label htmlFor='title' value='Title:' />
                     <TextInput id='title' onChange={handleChange} required type='text' placeholder='Enter title...' />
-                    <Label htmlFor='owner' value='Owner:' />
-                    <TextInput id='owner' onChange={handleChange} required type='text' placeholder='Enter fullname...' />
+                    <Label htmlFor='owner' value='Author:' />
+                    <TextInput id='author' onChange={handleChange} required type='text' placeholder='Enter fullname...' />
                 </div>
                 <div className="flex flex-col gap-2">
                     <Label htmlFor='image' value='Image:' className=''   />

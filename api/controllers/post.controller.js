@@ -7,7 +7,7 @@ export const createPost = async (req, res, next) => {
     try{
         const post = new Post({
             title,
-            owner,
+            author,
             image,
             category, 
             content
@@ -29,6 +29,7 @@ export const getPost = async (req, res, next) => {
     const limits = parseInt(limit) || 9
     const sortDirection = order  === 'asc' ? 1 : -1
     try{
+        const allPost = []
             if(!category){
                 const getPost = await  Post.find({
                     ...(title && {title}),
@@ -40,8 +41,10 @@ export const getPost = async (req, res, next) => {
                         ]
                     })
                 }).sort({updatedAt: sortDirection}).skip(start).limit(limits)
+
+                allPost.push(...getPost)
                 
-                res.status(200).json(getPost)
+                res.status(200).json(allPost)
 
             }else{
 
