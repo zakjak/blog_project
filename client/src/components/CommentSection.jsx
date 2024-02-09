@@ -65,7 +65,7 @@ function CommentSection({ postId }) {
             </div>
            
                 <div className='flex gap-2 mb-4'>
-                    <Textarea value={comment} onChange={e => setComment(e.target.value)} placeholder='Enter comment...' id='comment' />
+                    <Textarea className='max-h-14 min-h-14' value={comment} onChange={e => setComment(e.target.value)} placeholder='Enter comment...' id='comment' />
                     <Button type='submit' color='dark' className=''>Submit</Button>
                 </div>
                 {

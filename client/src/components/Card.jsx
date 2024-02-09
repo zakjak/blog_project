@@ -8,7 +8,7 @@ function Card({ post }) {
         <div className=" mt-1 p-4 flex flex-col gap-1 justify-between items-start">
             <h1 className='font-semiboldtext-lg line-clamp-2'>{post?.title}</h1>
             <div className='line-clamp-3 font-light text-sm text-gray-400' dangerouslySetInnerHTML={{__html: post?.content}}></div>
-            <span className='bg-black px-2 rounded-md'>{post?.category}</span>
+            <span className='bg-black px-2 rounded-md text-white text-sm tracking-wider'>{post?.category}</span>
         </div>
     </Link>
   )
