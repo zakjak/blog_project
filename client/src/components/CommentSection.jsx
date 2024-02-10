@@ -25,6 +25,7 @@ function CommentSection({ postId }) {
 
     const submitComment = async (e) => {
         e.preventDefault()
+
         const rawData = {
             postId: postId,
             comment,
@@ -49,9 +50,17 @@ function CommentSection({ postId }) {
         getComments()
     }, [postId])
 
+
+
+    const handleChange = (e) => {
+        setComment(e.target.innerHTML)
+    }
+
+    console.log(comment)
+
   return (
     <div className='w-[85%] mx-auto mb-4'>
-        <form onSubmit={submitComment}>
+        <form>
             <div className="border-b pb-4 border-gray-400 mb-5">
                     {
                         comments.totalComments ? (
@@ -61,20 +70,21 @@ function CommentSection({ postId }) {
                         )
                     }
                 
-                
             </div>
            
                 <div className='flex gap-2 mb-4'>
-                    <Textarea className='max-h-14 min-h-14' value={comment} onChange={e => setComment(e.target.value)} placeholder='Enter comment...' id='comment' />
-                    <Button type='submit' color='dark' className=''>Submit</Button>
-                </div>
-                {
-                    comments?.comments?.map(comment =>(
-                        <Comment key={comment?._id} comments={comment} />
-                    ))
-                }
-              
+                    <p style={{height: '3rem', border: '1px solid gray', borderRadius: '5px', outline: 'none', padding: '3px 4px', fontSize: '.8rem', fontWeight: '300', overflow: 'hidden'}} onInput={handleChange} content={comment} contentEditable className='w-full text-area' />
+                    <Button onClick={submitComment} color='dark' className=''>Submit</Button>
+                </div> 
         </form>
+        {
+            comments?.comments?.map(comment =>(
+                <Comment key={comment?._id} comments={comment} />
+            ))
+        }
+        <div className='flex justify-center'>
+            <Button className='dark:text-black text-white'>Show more comments</Button>
+        </div>
     </div>
   )
 }

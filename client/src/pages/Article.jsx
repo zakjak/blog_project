@@ -27,7 +27,7 @@ function Article() {
         <div className="pt-8 flex flex-col gap-2">
             <div className='w-[90%] mx-auto flex flex-col gap-4'>
                 <h1 className='lg:text-3xl  text-xl md:text-2xl'>{article.title}</h1>
-                <div className=" text-gray-400">
+                <div className=" dark:text-gray-400 text-black opacity-60">
                     <div className='flex items-center justify-between'>
                         <div className='flex flex-col gap-2 text-xs'>
                             <div className='flex items-center gap-2'>

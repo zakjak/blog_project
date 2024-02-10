@@ -4,7 +4,7 @@ import { FaRegCopyright } from "react-icons/fa6";
 function Footer() {
   
   return (
-    <div className='w-full gap-2 bg-gray-800 h-14 flex justify-center items-center'>
+    <div className='w-full gap-2 bg-gray-800 h-14 flex justify-center items-center text-white'>
       <FaRegCopyright />
       <span>{new Date().getFullYear()}</span>
       <span>Gh Media</span>
