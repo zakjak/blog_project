@@ -1,14 +1,16 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState,useRef } from 'react'
 import moment from 'moment'
 import { HiOutlineDotsVertical } from "react-icons/hi";
 import { Dropdown } from 'flowbite-react'
 import { useSelector } from 'react-redux'
-import classNames from 'classnames'
 
 function Comment({ comments }) {
     const [user, setUser] = useState({})
     const { currentUser } = useSelector(state => state.user)
-    const [readMore, setReadMore] = useState(false)
+    const [isExpanded, setIsExpanded] = useState(true);
+    const [modifiedComments, setModifiedComments] = useState('')
+
+    const ref = useRef()
 
     useEffect(() => {
         const getUsers = async () => {
@@ -22,30 +24,19 @@ function Comment({ comments }) {
         getUsers()
     }, [])
 
-    useEffect(() => {
-        const textContainer = document.querySelector('.text-container')
-        const text = document.getElementById('clamp-text')
+    console
 
-        const lineHeight = parseFloat(getComputedStyle(text).lineHeight)
-        const maxLines = 2
-
-        const fullHeight = lineHeight * maxLines
-
-        if(text.clientHeight > fullHeight){
-            textContainer.style.maxHeight = `${fullHeight}px`
-        }
-
-    }, [])
+    
 
     const handleToggle = () => {
-        setReadMore(!readMore)
+        setIsExpanded(!isExpanded)
     }
 
-    const commentClasses = classNames({
-        'text-sm': true,
-        'overflow-hidden': !readMore,
-        'max-h-16': !readMore
-    })
+    useEffect(() => {
+        const removeSpan = document.querySelectorAll('.text')
+    }, [])
+
+    
 
   return (
     <div className=''>
@@ -62,13 +53,18 @@ function Comment({ comments }) {
                             {moment(comments.createdAt).fromNow()}
                         </span>
                     </div>
-                    <div className="text-container" id='clamp-text'>
-                        <span dangerouslySetInnerHTML={{__html: comments.comment}} className={commentClasses}></span>
-                        {comments.comment.split('\n').length > 1 && (
-                            <span className='text-sm font-semibold cursor-pointer' onClick={handleToggle}>
-                                {readMore ? 'Read Less' : 'Read more'}
-                            </span>
-                        )}
+                    <div className={"text-container"} id='clamp-text'>
+                            <div id='article-content' className='line-clamp-1'>
+                                <div 
+                                    ref={ref} 
+                                    className='flex flex-col leading-5 text'  
+                                    dangerouslySetInnerHTML={{__html: comments.comment}} />
+                            </div>
+                            {/* {comments.comment.length > 5 &&(
+                                <span className='text-sm font-semibold cursor-pointer' onClick={handleToggle}>
+                                    Read more
+                                </span>
+                            )}  */}
                     </div>
                 </div>
             </div>

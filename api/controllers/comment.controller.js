@@ -16,7 +16,7 @@ export const createComment = async (req, res, next) => {
 
     try{
         const newComment = new Comment({
-            comment,
+            comment: comment.join(''),
             postId, 
             userId
         })
@@ -46,7 +46,8 @@ export const getPostComment = async (req, res, next) => {
 }
 
 export const getComments = async (req, res, next) => {
-    const { startIndex, limit } = req.body
+    const { startIndex, limit } = req.query
+    console.log(startIndex, limit)
 
     try{
         const start = parseInt(startIndex) || 0

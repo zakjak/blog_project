@@ -1,13 +1,14 @@
-import React, { useEffect, useState } from 'react'
-import { Button, Textarea } from 'flowbite-react'
+import { useEffect, useState } from 'react'
+import { Button } from 'flowbite-react'
 import { useSelector } from 'react-redux'
 import Comment from './Comment'
 import { formatCount } from '../lib/Common'
 
 function CommentSection({ postId }) {
-    const [comment, setComment] = useState('')
+    const [comment, setComment] = useState([])
     const { currentUser } = useSelector(state => state.user)
     const [comments, setComments] = useState([])
+    const [showMore, setShowMore] = useState(true)
 
     const getComments = async () => {
         try{
@@ -39,7 +40,7 @@ function CommentSection({ postId }) {
 
         const data = await res.json()
         if(res.ok){
-            setComment('')
+            setComment([])
             getComments()
         }
 
@@ -53,10 +54,35 @@ function CommentSection({ postId }) {
 
 
     const handleChange = (e) => {
-        setComment(e.target.innerHTML)
+        const paragraphs = e.target.innerText.split('\n')
+
+        const updatedContent = paragraphs.map((para) => (
+            `<p>${para}</p>`
+        ))
+
+        setComment(updatedContent)
     }
 
-    console.log(comment)
+    const handleShowMore = async () => {
+        const startIndex = comments.comments.length
+
+        try{
+            const res = await fetch(`/api/comment/getComments/${postId}?startIndex=${startIndex}`)
+            const data = await res.json()
+            console.log(data.comments.comments)
+            
+            comments
+            if(res.ok){
+                setComments((prev) => [...prev.comments])
+                console.log(comments)
+                if(data.comments.comments.length < 9){
+                    setShowMore(false)
+                }
+            }
+        }catch(err){
+            console.log(err)
+        }
+    }
 
   return (
     <div className='w-[85%] mx-auto mb-4'>
@@ -73,7 +99,7 @@ function CommentSection({ postId }) {
             </div>
            
                 <div className='flex gap-2 mb-4'>
-                    <p style={{height: '3rem', border: '1px solid gray', borderRadius: '5px', outline: 'none', padding: '3px 4px', fontSize: '.8rem', fontWeight: '300', overflow: 'hidden'}} onInput={handleChange} content={comment} contentEditable className='w-full text-area' />
+                    <span style={{height: '3rem', border: '1px solid gray', borderRadius: '5px', outline: 'none', padding: '3px 4px', fontSize: '.8rem', fontWeight: '300', overflow: 'hidden'}} onInput={handleChange} content={comment} contentEditable className='w-full text-area editableDiv' />
                     <Button onClick={submitComment} color='dark' className=''>Submit</Button>
                 </div> 
         </form>
@@ -83,7 +109,7 @@ function CommentSection({ postId }) {
             ))
         }
         <div className='flex justify-center'>
-            <Button className='dark:text-black text-white'>Show more comments</Button>
+            <Button className='dark:text-black text-white' onClick={handleShowMore} >Show more comments</Button>
         </div>
     </div>
   )

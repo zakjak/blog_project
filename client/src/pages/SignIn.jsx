@@ -1,4 +1,4 @@
-import { Button, Label, TextInput } from 'flowbite-react'
+import { Label, TextInput, Button } from 'flowbite-react'
 import { Link, useNavigate } from 'react-router-dom'
 import { useState } from 'react'
 import { useDispatch } from 'react-redux'
@@ -51,7 +51,7 @@ function SignIn() {
                     <TextInput onChange={handleChange} type='email' id='email' placeholder='name@example.com' required />
                     <Label htmlFor='password' value='Your password:' />
                     <TextInput onChange={handleChange} type='password' id='password'  required />
-                    <Button type='submit'>Login</Button>
+                    <Button  type='submit'>Login</Button>
                     <span className='text-gray-400 text-sm'>Don't have an account? <Link to='/sign-up' className='text-lg hover:underline text-white'>Sign up</Link></span>
                     <span className='text-center'>or sign in with</span>
                     <Oauth />
