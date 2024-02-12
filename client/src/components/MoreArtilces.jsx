@@ -2,8 +2,9 @@ import React, { useEffect, useState } from 'react'
 import Card from './Card'
 import { FaChevronDown, FaChevronRight } from "react-icons/fa6";
 
-function MoreArtilces() {
+function MoreArtilces({ topPosts }) {
   const [posts, setPosts] = useState([])
+  const [myData, setMyData] = useState({})
 
 
   useEffect(() => {
@@ -13,11 +14,14 @@ function MoreArtilces() {
         const data = await res.json()
 
       if(res.ok){
-        setPosts(data)
+        const dataToFilter = topPosts.map(top => top._id)
+        const filteredArray = data.filter(myData => !dataToFilter.includes(myData._id))
+        console.log(filteredArray)
+        setPosts(filteredArray)
       }  
     }
     fetchData()
-  }, [])
+  }, [topPosts])
 
   const handleShowMore = async () => {
     let num = 2

@@ -23,7 +23,7 @@ function Home() {
   return (
     <div className='min-h-screen w-[70%] mx-auto mb-4'>
       <TopArticles posts={posts} />
-      <MoreArtilces posts={posts} />
+      <MoreArtilces topPosts={posts} />
     </div>
   )
 }
