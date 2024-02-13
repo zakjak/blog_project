@@ -1,5 +1,5 @@
 import { useSelector } from 'react-redux'
-import { Button } from 'flowbite-react'
+import { Button, Spinner } from 'flowbite-react'
 import { Link } from 'react-router-dom'
 import { useEffect, useState } from 'react'
 import Card from '../components/Card'
@@ -7,6 +7,7 @@ import Card from '../components/Card'
 function Profile() {
   const [posts, setPosts] = useState([])
   const {currentUser} = useSelector(state => state.user)
+  const [loading, setLoading] = useState(false)
 
   console.log(currentUser._id)
 
@@ -15,7 +16,6 @@ function Profile() {
       try{
         const res = await fetch(`/api/post/getPost?userId=${currentUser._id}`)
         const data = await res.json()
-        console.log(data)
   
         if(res.ok){
           setPosts(data)
@@ -46,12 +46,17 @@ function Profile() {
           )
         }
       </div>
+      
       <div className='grid mt-4 md:grid-cols-3 gap-2 md:w-[80%] mx-auto w-[65%] '>
         {
-          posts && (
+          posts ? (
             posts.map(post => (
               <Card key={post._id} post={post} />
             ))
+          ) : (
+            <div className='w-full col-span-4 h-screen flex justify-center items-center'>
+              <Spinner />
+            </div>
           )
         }
       </div>
