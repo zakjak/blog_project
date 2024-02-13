@@ -16,7 +16,6 @@ function MoreArtilces({ topPosts }) {
       if(res.ok){
         const dataToFilter = topPosts.map(top => top._id)
         const filteredArray = data.filter(myData => !dataToFilter.includes(myData._id))
-        console.log(filteredArray)
         setPosts(filteredArray)
       }  
     }
@@ -42,17 +41,23 @@ function MoreArtilces({ topPosts }) {
 
   return (
     <div className='mt-4'>
-      <div className="flex items-center cursor-pointer opacity-80 hover:opacity-100">
-        <h1 className='text-lg mb-2 font-semibold tracking-wide'>More stories</h1>
-        <span className='text-sm'><FaChevronRight /></span>
-      </div>
-      <div className='grid lg:grid-cols-3 md:grid-cols-2 gap-4'>
       {
-        posts.map((post) => (
-          <Card key={post._id} post={post} />
-        ))
+        posts && (
+          <>
+            <div className="flex items-center cursor-pointer opacity-80 hover:opacity-100">
+              <h1 className='text-lg mb-2 font-semibold tracking-wide'>More stories</h1>
+              <span className='text-xs'><FaChevronRight /></span>
+            </div>
+            <div className='grid lg:grid-cols-3 md:grid-cols-2 gap-4'>
+            {
+              posts.map((post) => (
+                <Card key={post._id} post={post} />
+              ))
+            }
+            </div>
+          </>
+        )
       }
-      </div>
     </div>
   )
 }

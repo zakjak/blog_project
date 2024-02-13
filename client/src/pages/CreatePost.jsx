@@ -59,8 +59,7 @@ function CreatePost() {
             ...formData,
             image: fileInput
         }
-
-        console.log(currentUser._id)
+        console.log(data)
 
         if(!fileInput || fileInput === ''){
             return
@@ -135,6 +134,7 @@ function CreatePost() {
                             <option value="politics">Politics</option>
                             <option value="entertainment">Entertainment</option>
                             <option value="business">Business</option>
+                            <option value="tech">Technology</option>
                         </Select>
                 </div>
                 <div className="h-[20rem] flex flex-col gap-2">

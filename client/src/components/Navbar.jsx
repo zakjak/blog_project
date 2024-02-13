@@ -55,9 +55,13 @@ function NavbarComponent() {
                             {currentUser.username}
                         </div>
                         <Dropdown.Divider />
-                        <Dropdown.Item as={Link} to={`/profile/${currentUser._id}`}>
-                            Profile
-                        </Dropdown.Item>
+                        {
+                            currentUser.isAdmin && (
+                                <Dropdown.Item as={Link} to={`/profile/${currentUser._id}`}>
+                                    Profile
+                                </Dropdown.Item>
+                            )
+                        }
                         <Dropdown.Item onClick={handleSignOut}>
                             Signout
                         </Dropdown.Item>

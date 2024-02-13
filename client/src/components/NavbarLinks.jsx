@@ -34,6 +34,10 @@ function NavbarLinks() {
             ${tab === '/business' && 'underline'}`} href='/business'>
                 Business
             </Navbar.Link>
+            <Navbar.Link className={`text-white dark:text-white 
+            ${tab === '/tech' && 'underline'}`} href='/tech'>
+                Technology
+            </Navbar.Link>
         </div>
     </Navbar>
   )

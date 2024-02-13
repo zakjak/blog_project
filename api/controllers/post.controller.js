@@ -2,7 +2,7 @@ import Post from "../models/post.model.js"
 import { errorHandler } from "../utils/error.js"
 
 export const createPost = async (req, res, next) => {
-    const { title, image, category, content, owner } = req.body
+    const { title, image, category, content, author } = req.body
 
     try{
         const post = new Post({
@@ -10,7 +10,8 @@ export const createPost = async (req, res, next) => {
             author,
             image,
             category, 
-            content
+            content,
+            author
         })
 
         await post.save()
