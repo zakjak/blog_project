@@ -57,7 +57,8 @@ function CreatePost() {
       
         const data ={
             ...formData,
-            image: fileInput
+            image: fileInput,
+            userId: currentUser._id
         }
         console.log(data)
 

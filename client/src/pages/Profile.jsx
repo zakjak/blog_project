@@ -1,9 +1,31 @@
 import { useSelector } from 'react-redux'
 import { Button } from 'flowbite-react'
 import { Link } from 'react-router-dom'
+import { useEffect, useState } from 'react'
+import Card from '../components/Card'
 
 function Profile() {
+  const [posts, setPosts] = useState([])
   const {currentUser} = useSelector(state => state.user)
+
+  console.log(currentUser._id)
+
+  useEffect(() => {
+    const getPosts = async() => {
+      try{
+        const res = await fetch(`/api/post/getPost?userId=${currentUser._id}`)
+        const data = await res.json()
+        console.log(data)
+  
+        if(res.ok){
+          setPosts(data)
+        }
+      }catch(err){
+        console.log(err)
+      }
+    }
+    getPosts()
+  }, [currentUser._id])
 
   return (
     <div className='min-h-screen w-full'>
@@ -21,6 +43,15 @@ function Profile() {
             <Link to='/create'>
               <Button color='dark'>Create +</Button>
             </Link>
+          )
+        }
+      </div>
+      <div className='grid mt-4 md:grid-cols-3 gap-2 md:w-[80%] mx-auto w-[65%] '>
+        {
+          posts && (
+            posts.map(post => (
+              <Card key={post._id} post={post} />
+            ))
           )
         }
       </div>

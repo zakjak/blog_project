@@ -24,7 +24,7 @@ export const createPost = async (req, res, next) => {
 }
 
 export const getPost = async (req, res, next) => {
-    const { title, content, startIndex, order, searchTerm, category, postId, limit } = req.query
+    const { title, content, startIndex, order, searchTerm, category, postId, limit, userId } = req.query
 
     const start = parseInt(startIndex) || 0
     const limits = parseInt(limit) || 9
@@ -35,6 +35,7 @@ export const getPost = async (req, res, next) => {
                 const getPost = await  Post.find({
                     ...(title && {title}),
                     ...(postId && {_id: postId}),
+                    ...(userId && {userId: userId}),
                     ...(searchTerm && {
                         $or: [
                             {title: {$regex: title, $options: 'i'}},
