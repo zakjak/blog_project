@@ -13,6 +13,7 @@ import Politics from './pages/Politics'
 import Entertainment from './pages/Entertainment'
 import Business from './pages/Business'
 import Technology from './pages/Technology'
+import Search from './pages/Search'
 
 function App() {
 
@@ -32,6 +33,7 @@ function App() {
         <Route path='/politics' element={<Politics />} />
         <Route path='/tech' element={<Technology />} />
         <Route path='/article/:id' element={<Article />} />
+        <Route path='/search' element={<Search />} />
     </Routes>
     <Footer />
     </>

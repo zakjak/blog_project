@@ -2,11 +2,12 @@ import Post from "../models/post.model.js"
 import { errorHandler } from "../utils/error.js"
 
 export const createPost = async (req, res, next) => {
-    const { title, image, category, content, author } = req.body
+    const { title, image, category, content, author, userId } = req.body
 
     try{
         const post = new Post({
             title,
+            userId,
             author,
             image,
             category, 
@@ -38,8 +39,8 @@ export const getPost = async (req, res, next) => {
                     ...(userId && {userId: userId}),
                     ...(searchTerm && {
                         $or: [
-                            {title: {$regex: title, $options: 'i'}},
-                            {content: {$regex: content, $options: 'i'}}
+                            {title: {$regex: `${searchTerm}`, $options: 'i'}},
+                            {content: {$regex: `${content}`, $options: 'i'}}
                         ]
                     })
                 }).sort({updatedAt: sortDirection}).skip(start).limit(limits)

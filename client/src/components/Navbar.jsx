@@ -1,18 +1,31 @@
 import { Button, Dropdown, Navbar, TextInput } from 'flowbite-react'
-import { Link, useNavigate } from 'react-router-dom'
+import { Link, useNavigate, useLocation } from 'react-router-dom'
 import { IoIosSearch } from "react-icons/io";
 import { useDispatch, useSelector } from 'react-redux'
 import { toggleTheme } from '../redux/theme/themeSlice';
 import { FaMoon, FaSun } from 'react-icons/fa'
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { signOut } from '../redux/user/userSlice';
 
 function NavbarComponent() {
+    const [searchInput, setSearchInput] = useState('')
+    const [searchTerm, setSearchTerm] = useState('')
+
+
     const { theme } = useSelector(state => state.theme)
     const { currentUser } = useSelector(state => state.user)
     
     const  dispatch = useDispatch()
     const navigate = useNavigate()
+    const location = useLocation()
+
+    useEffect(() => {
+        const urlParams = new URLSearchParams(location.search)
+        const searchTermFromUrl = urlParams.get('searchTerm')
+        if(searchTermFromUrl){
+            setSearchTerm(searchTermFromUrl)
+        }
+    }, [location.search])
 
     const handleSignOut = async () => {
         const res = await fetch('/api/auth/signout', {
@@ -28,6 +41,15 @@ function NavbarComponent() {
         }
     }
 
+    const handleSearch = (e) => {
+        e.preventDefault()
+        const urlParams = new URLSearchParams(location.search)
+        console.log(urlParams)
+        urlParams.set('searchTerm', searchInput)
+        const searchQuery = urlParams.toString()
+        navigate(`/search?${searchQuery}`)
+    }
+
   return (
     <Navbar className='w-full sticky top-0 z-50 h-16 shadow-md flex items-center'>
         <Navbar.Brand as={Link} to='/'>
@@ -35,8 +57,8 @@ function NavbarComponent() {
         </Navbar.Brand>
         <form>
             <div className=" flex items-center h-8">
-                <TextInput className='' type='search' placeholder='Search...' />
-                <IoIosSearch className='text-gray-500 text-lg' />
+                <TextInput value={searchInput} onChange={e => setSearchInput(e.target.value)} className='' type='search' placeholder='Search...' />
+                <IoIosSearch onClick={handleSearch} className='text-gray-500 text-lg' />
             </div>
         </form>
         <div className="flex gap-2 items-center">

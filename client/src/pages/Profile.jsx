@@ -37,7 +37,7 @@ function Profile() {
         <p>{currentUser.email}</p>
       </div>
       <div className="flex gap-4 justify-center mt-4">
-        <Button color='dark'>Posts</Button>
+        {/* <Button color='dark'>Posts</Button> */}
         {
           currentUser && currentUser.isAdmin && (
             <Link to='/create'>
