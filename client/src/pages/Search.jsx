@@ -47,22 +47,29 @@ function Search() {
                 <div className="col-span-1">
     
                 </div>
-                <div className="col-span-3 flex flex-col">
+                <div className="col-span-3 flex flex-col gap-2">
                     {
-                        posts && (
+                        posts.length ? (
                             posts.map(post => (
-                                <Link to={`/article/${post._id}`} key={post._id} className="flex gap-2">
-                                    <div className='w-[27rem]  col-span-1'>
-                                        <img className='w-full object-cover' src={post.image} alt="" />
-                                    </div>
-                                    <div className="">
-                                        <span className='line-clamp-1 font-semibold'>{post.title}</span>
-                                        <span className='line-clamp-2 text-xs text-gray-400 font-light mt-2' dangerouslySetInnerHTML={{__html: post.content}}></span>
-                                    </div>
-                                </Link>
+                                    <Link to={`/article/${post._id}`} key={post._id}>
+                                        <div className="flex gap-3">
+                                            <div className='w-[10rem]  col-span-1'>
+                                                <img className='w-full object-cover' src={post.image} alt="" />
+                                            </div>
+                                            <div className="w-[95%]">
+                                                <span className='line-clamp-1 font-semibold'>{post.title}</span>
+                                                <span className='line-clamp-2 text-xs text-gray-400 font-light mt-2' dangerouslySetInnerHTML={{__html: post.content}}></span>
+                                            </div>
+                                        </div>
+                                    </Link>
                             ))
+                        ) : (
+                            <p>Please search again!!!</p>
                         )
                     }
+                    <div>
+                        1
+                    </div>
                 </div>
                 <div className="col-span-2"></div>
                 </>

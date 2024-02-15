@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react'
 import Card from './Card'
-import { FaChevronDown, FaChevronRight } from "react-icons/fa6";
+import { FaChevronDown} from "react-icons/fa6";
 
 function MoreArtilces({ topPosts }) {
   const [posts, setPosts] = useState([])
-  const [myData, setMyData] = useState({})
+  const [showMore, setShowMore] = useState(false)
 
 
   useEffect(() => {
@@ -23,20 +23,22 @@ function MoreArtilces({ topPosts }) {
   }, [topPosts])
 
   const handleShowMore = async () => {
-    let num = 2
-    const numberOfPost = num += 2
-    const startIndex = numberOfPost
-    const urlParams = new URLSearchParams(location.search)
+    const startIndex = posts.length
+    
+    try{
+      const res = await fetch(`api/post/getPost?startIndex=${startIndex}`)
+      const data = await res.json()
 
-    urlParams.set('startIndex', startIndex)
-    const searchQuery = urlParams.toString()
-
-    const res = await fetch(`api/post/getPost?startIndex=${searchQuery}&limit=4`)
-        const data = await res.json()
-
-      // if(res.ok){
-      //   setPosts({...posts, data})
-      // }  
+      if(res.ok){
+        setPosts((prev) => [...prev, ...data])
+        if(data.length < 9){
+          setShowMore(false)
+        }
+      } 
+    }catch(err){
+      console.log(err)
+    }
+     
   }
 
   return (
@@ -45,8 +47,7 @@ function MoreArtilces({ topPosts }) {
         posts && (
           <>
             <div className="flex items-center cursor-pointer opacity-80 hover:opacity-100">
-              <h1 className='text-lg mb-2 font-semibold tracking-wide'>More stories</h1>
-              <span className='text-xs'><FaChevronRight /></span>
+              <h1 className='text-md mb-2 font-semibold tracking-wide'>More stories</h1>
             </div>
             <div className='grid lg:grid-cols-3 md:grid-cols-2 gap-4'>
             {
@@ -58,6 +59,13 @@ function MoreArtilces({ topPosts }) {
           </>
         )
       }
+      {
+        showMore && (
+        <div className="w-full flex justify-center mt-4">
+          <FaChevronDown dis onClick={handleShowMore} className='cursor-pointer' />
+        </div>
+        )
+      } 
     </div>
   )
 }
