@@ -8,8 +8,11 @@ import postRoutes from './routes/post.route.js'
 import commentRoutes from './routes/comment.route.js'
 import userRoutes from './routes/user.route.js'
 import mongoose from 'mongoose'
+import path from 'path'
 
 const app = express()
+
+const __dirname = path.resolve()
 
 // Middlewares
 dotenv.config()
@@ -36,6 +39,12 @@ app.use('/api/user', userRoutes)
 mongoose.connect(process.env.MONGO_URL)
 .then(() => {
     console.log('Database connected')
+})
+
+app.use(express.static(path.join(__dirname, '/client/dist')))
+
+app.get('*', (req, res) => {
+    res.sendFile(path.join(__dirname, 'client', 'dist', 'index.html'))
 })
 
 

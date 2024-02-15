@@ -67,9 +67,9 @@ function Search() {
                             <p>Please search again!!!</p>
                         )
                     }
-                    <div>
+                    {/* <div>
                         1
-                    </div>
+                    </div> */}
                 </div>
                 <div className="col-span-2"></div>
                 </>

@@ -44,6 +44,8 @@ function Article() {
         })
     }
 
+    console.log(location)
+
   return (
     <div className=' min-h-screen grid grid-cols-6 w-[90%] mx-auto'>
         {
@@ -97,7 +99,7 @@ function Article() {
             )
         }
         {
-            relatedArticles.length > 0 && (
+            relatedArticles && (
                 <div className='mt-4 p-8 col-span-2 mx-8'>
                     <h2 className='text-lg drop-shadow-lg mb-2'>Related articles</h2>
                     <div className="flex flex-col gap-4">

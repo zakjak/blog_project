@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom'
+import { Link, useLocation } from 'react-router-dom'
 import { postViews } from '../lib/Common'
 import { HiOutlineDotsVertical } from "react-icons/hi"
 import { useSelector } from 'react-redux'
@@ -6,6 +6,9 @@ import { Dropdown } from 'flowbite-react'
 
 function Card({ post }) {
   const { currentUser } = useSelector(state => state.user)
+
+  const location = useLocation()
+  console.log(location)
 
 
     const handleClick = () => {
@@ -29,7 +32,7 @@ function Card({ post }) {
           </div>
       </Link>
       {
-        currentUser.isAdmin && (
+        location.pathname != '/' && location.pathname === `/article/${post._id}`  && (
           <div className="absolute top-4 right-4 p-2 opacity-65 hover:opacity-80 bg-black rounded-full">
             <Dropdown className='' outline label="" dismissOnClick={false} renderTrigger={() => <span><HiOutlineDotsVertical /></span>}>
                 <Dropdown.Item className='bg-red-500' onClick={handleDelete(post._id)}>Delete</Dropdown.Item>
