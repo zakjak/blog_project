@@ -47,24 +47,24 @@ function Search() {
                 <div className="col-span-1">
     
                 </div>
-                <div className="col-span-4 flex flex-col  gap-2">
+                <div className="col-span-3 flex flex-col">
                     {
                         posts && (
                             posts.map(post => (
                                 <Link to={`/article/${post._id}`} key={post._id} className="flex gap-2">
-                                    <div className='w-[8rem] h-13 col-span-1'>
-                                        <img className='w-full h-full object-cover' src={post.image} alt="" />
+                                    <div className='w-[27rem]  col-span-1'>
+                                        <img className='w-full object-cover' src={post.image} alt="" />
                                     </div>
                                     <div className="">
                                         <span className='line-clamp-1 font-semibold'>{post.title}</span>
-                                        <span className='line-clamp-2 text-xs text-gray-400' dangerouslySetInnerHTML={{__html: post.content}}></span>
+                                        <span className='line-clamp-2 text-xs text-gray-400 font-light mt-2' dangerouslySetInnerHTML={{__html: post.content}}></span>
                                     </div>
                                 </Link>
                             ))
                         )
                     }
                 </div>
-                <div className="col-span-1"></div>
+                <div className="col-span-2"></div>
                 </>
             )
         }

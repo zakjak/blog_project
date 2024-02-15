@@ -43,6 +43,9 @@ function NavbarComponent() {
 
     const handleSearch = (e) => {
         e.preventDefault()
+        if(!searchInput || searchInput === ''){
+            return;
+        }
         const urlParams = new URLSearchParams(location.search)
         console.log(urlParams)
         urlParams.set('searchTerm', searchInput)
@@ -55,10 +58,10 @@ function NavbarComponent() {
         <Navbar.Brand as={Link} to='/'>
             Gh Media
         </Navbar.Brand>
-        <form>
+        <form onSubmit={handleSearch}>
             <div className=" flex items-center h-8">
                 <TextInput value={searchInput} onChange={e => setSearchInput(e.target.value)} className='' type='search' placeholder='Search...' />
-                <IoIosSearch onClick={handleSearch} className='text-gray-500 text-lg' />
+                <Button type='submit' outline color='blak'><IoIosSearch type='submit' className='text-2xl'  /></Button>
             </div>
         </form>
         <div className="flex gap-2 items-center">
