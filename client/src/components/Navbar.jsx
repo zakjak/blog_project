@@ -28,7 +28,7 @@ function NavbarComponent() {
     }, [location.search])
 
     const handleSignOut = async () => {
-        const res = await fetch('/api/auth/signout', {
+        const res = await fetch('https://blog96.onrender.com/api/auth/signout', {
             method: 'POST'
         })
 

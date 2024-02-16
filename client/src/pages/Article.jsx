@@ -20,14 +20,14 @@ function Article() {
     }, [id])
 
     const getArticle = async () => {
-        const res = await fetch(`/api/post/getPost?postId=${id}`)
+        const res = await fetch(`https://blog96.onrender.com/api/post/getPost?postId=${id}`)
         const data = await res.json()
         setArticle(...data)
     }
 
     useEffect(() => {
         const getRelatedArticles = async () => {
-            const res = await fetch(`/api/post/getPost?category=${article?.category}&&limits=3`)
+            const res = await fetch(`https://blog96.onrender.com/api/post/getPost?category=${article?.category}&&limits=3`)
             const data = await res.json()
              if(res.ok){
                 const filtered = data.filter((post) => post._id !== article._id)

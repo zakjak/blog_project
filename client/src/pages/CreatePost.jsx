@@ -4,7 +4,7 @@ import { useState } from 'react';
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
 import { IoIosClose } from "react-icons/io";
-import { getDownloadURL, getStorage, ref, uploadBytes, uploadBytesResumable } from 'firebase/storage'
+import { getDownloadURL, getStorage, ref, uploadBytesResumable } from 'firebase/storage'
 import app from '../firebase';
 import { useNavigate } from 'react-router-dom'
 
@@ -66,7 +66,7 @@ function CreatePost() {
             return
         }
         try{
-            const res = await fetch('/api/post/create', {
+            const res = await fetch('https://blog96.onrender.com/api/post/create', {
                 method: 'POST',
                 headers: {"Content-Type": 'application/json'},
                 body: JSON.stringify(data)

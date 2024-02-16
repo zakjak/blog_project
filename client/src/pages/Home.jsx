@@ -8,7 +8,7 @@ function Home() {
   useEffect(() => {
 
     const fetchData = async () => {
-        const res = await fetch(`/api/post/getPost?category=sports&category=entertainment&category=business&category=politics&limit=1`)
+        const res = await fetch(`https://blog96.onrender.com/api/post/getPost?category=sports&category=entertainment&category=business&category=politics&limit=1`)
         const data = await res.json()
 
       if(res.ok){

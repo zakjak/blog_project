@@ -14,7 +14,7 @@ function Search() {
             setLoading(true)
             const searchQuery = urlParams.toString()
             try{
-                const res = await fetch(`/api/post/getPost?${searchQuery}`)
+                const res = await fetch(`https://blog96.onrender.com/api/post/getPost?${searchQuery}`)
 
                 if(!res.ok){
                     return

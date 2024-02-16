@@ -10,7 +10,7 @@ function Business() {
     useEffect(() => {
   
       const fetchData = async () => {
-          const res = await fetch(`/api/post/getPost?category=${category}&limit=4`)
+          const res = await fetch(`https://blog96.onrender.com/api/post/getPost?category=${category}&limit=4`)
           const data = await res.json()
   
         if(res.ok){
