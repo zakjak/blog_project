@@ -4,6 +4,7 @@ import { useState } from 'react'
 import { useDispatch } from 'react-redux'
 import { signInStart, signInSuccessful, signInFailure } from '../redux/user/userSlice'
 import Oauth from '../components/Oauth'
+import axios from 'axios'
 
 function SignIn() {
     const [userData, setUserData] = useState({})
@@ -21,8 +22,7 @@ function SignIn() {
         e.preventDefault()
         try{
             dispatch(signInStart())
-            const res = await fetch('https://blog96.onrender.com/api/auth/signin', {
-                method: 'POST',
+            const res = await axios.post('https://blog96.onrender.com/api/auth/signin', {
                 headers: { 'Content-Type': "application/json" },
                 body: JSON.stringify(userData)
             })

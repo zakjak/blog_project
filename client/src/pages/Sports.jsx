@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import TopArticles from '../components/TopArticles'
 import { useLocation } from 'react-router-dom'
 import MoreArtilces from '../components/MoreArtilces'
+import axios from 'axios'
 
 function Sports() {
     const [posts, setPosts] = useState([])
@@ -11,10 +12,9 @@ function Sports() {
   useEffect(() => {
 
     const fetchData = async () => {
-        const res = await fetch(`https://blog96.onrender.com/api/post/getPost?category=${category}&limit=4`)
-        const data = await res.json()
-
-      if(res.ok){
+        const res = await axios.get(`https://blog96.onrender.com/api/post/getPost?category=${category}&limit=4`)
+        const data = res.data
+      if(res){
         setPosts(data)
       }  
     }

@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { Link, useLocation } from 'react-router-dom'
 import { Spinner } from 'flowbite-react'
+import axios from 'axios'
 
 function Search() {
     const [posts, setPosts] = useState([])
@@ -14,14 +15,14 @@ function Search() {
             setLoading(true)
             const searchQuery = urlParams.toString()
             try{
-                const res = await fetch(`https://blog96.onrender.com/api/post/getPost?${searchQuery}`)
+                const res = await axios.get(`https://blog96.onrender.com/api/post/getPost?${searchQuery}`)
 
-                if(!res.ok){
+                if(!res){
                     return
                 }
         
-                if(res.ok){
-                    const data = await res.json()
+                if(res){
+                    const data = res.data
                     setPosts(data)
                     setLoading(false)
                 }
@@ -31,8 +32,6 @@ function Search() {
         }
         fetchPosts()
     }, [location.search])
-
-    console.log(posts)
     
 
   return (

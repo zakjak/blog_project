@@ -8,7 +8,6 @@ function Card({ post }) {
   const { currentUser } = useSelector(state => state.user)
 
   const location = useLocation()
-  console.log(location)
 
 
     const handleClick = () => {

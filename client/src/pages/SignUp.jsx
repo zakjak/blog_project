@@ -2,6 +2,7 @@ import { Alert, Button, Label, TextInput } from 'flowbite-react'
 import { Link, useNavigate } from 'react-router-dom'
 import { FaGoogle } from 'react-icons/fa'
 import { useState } from 'react'
+import axios from 'axios'
 
 
 
@@ -18,8 +19,7 @@ function SignUp() {
     const handleSubmit = async (e) => {
         e.preventDefault()
         try{
-            const res = await fetch('https://blog96.onrender.com/api/auth/signup', {
-                method: 'POST',
+            const res = await axios.post('https://blog96.onrender.com/api/auth/signup', {
                 headers: { 'Content-Type': "application/json" },
                 body: JSON.stringify(userData)
             })
