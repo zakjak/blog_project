@@ -10,7 +10,7 @@ function MoreArtilces({ topPosts }) {
   useEffect(() => {
 
     const fetchData = async () => {
-        const res = await fetch(`https://blog96.onrender.com/api/post/getPost?limit=9`)
+        const res = await fetch(`https://blog-site-dhug.onrender.com/api/post/getPost?limit=9`)
         const data = await res.json()
 
       if(res.ok){
@@ -26,7 +26,7 @@ function MoreArtilces({ topPosts }) {
     const startIndex = posts.length
     
     try{
-      const res = await fetch(`https://blog96.onrender.comapi/post/getPost?startIndex=${startIndex}`)
+      const res = await fetch(`https://blog-site-dhug.onrender.com/api/post/getPost?startIndex=${startIndex}`)
       const data = await res.json()
 
       if(res.ok){
@@ -44,12 +44,12 @@ function MoreArtilces({ topPosts }) {
   return (
     <div className='mt-4'>
       {
-        posts && (
+        posts.length > 0 && (
           <>
             <div className="flex items-center cursor-pointer opacity-80 hover:opacity-100">
               <h1 className='text-md mb-2 font-semibold tracking-wide'>More stories</h1>
             </div>
-            <div className='grid lg:grid-cols-3 md:grid-cols-2 gap-4'>
+            <div className='grid grid-cols-1 lg:grid-cols-3 md:grid-cols-2 gap-4'>
             {
               posts.map((post) => (
                 <Card key={post._id} post={post} />

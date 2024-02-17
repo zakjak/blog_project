@@ -1,6 +1,9 @@
-[[headers]]
-  for = "*"
-  [headers.values]
-    Access-Control-Allow-Origin = "*"
-    Access-Control-Allow-Headers = "Content-Type"
-    Access-Control-Allow-Methods = "GET, POST, OPTIONS"
+[build]
+command = "npm run build && npm run export"
+publish = "out"
+
+
+[[redirects]]
+from = "/*"
+to = "/index.html"
+status = 200

@@ -10,6 +10,10 @@ li{
     list-style: none;
 }
 
+.navlinks::-webkit-scrollbar{
+    @apply hidden
+}
+
 .article {
     margin-top: 5px;
     text-align: justify;
@@ -23,3 +27,4 @@ li{
     font-size: small;
     font-weight: 500;
 }
+

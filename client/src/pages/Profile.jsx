@@ -14,7 +14,7 @@ function Profile() {
   useEffect(() => {
     const getPosts = async() => {
       try{
-        const res = await fetch(`https://blog96.onrender.com/api/post/getPost?userId=${currentUser._id}`)
+        const res = await fetch(`https://blog-site-dhug.onrender.com/api/post/getPost?userId=${currentUser._id}`)
         const data = await res.json()
   
         if(res.ok){

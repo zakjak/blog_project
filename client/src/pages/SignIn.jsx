@@ -22,7 +22,7 @@ function SignIn() {
         e.preventDefault()
         try{
             dispatch(signInStart())
-            const res = await axios.post('https://blog96.onrender.com/api/auth/signin', {
+            const res = await axios.post('https://blog-site-dhug.onrender.com/api/auth/signin', {
                 headers: { 'Content-Type': "application/json" },
                 body: JSON.stringify(userData)
             })
@@ -43,17 +43,17 @@ function SignIn() {
     }
 
   return (
-        <form onSubmit={handleSubmit} className='min-h-screen w-full flex flex-col items-center justify-center'>
-            <div className="w-[35%] p-4 shadow-md bg-gray-800 rounded-lg flex flex-col mb-[10rem] gap-4">
-                <h1 className='text-center text-3xl'>Sign In</h1>
+        <form onSubmit={handleSubmit} className=' min-h-screen text-white w-full flex flex-col items-center justify-center'>
+            <div className="lg:w-[40%] w-[80%] md:w-[60%] p-4 shadow-md bg-gray-800 rounded-lg flex flex-col mb-[10rem] gap-4">
+                <h1 className='text-center text-xl md:text-2xl lg:text-3xl'>Sign In</h1>
                 <div className="flex flex-col gap-4">
-                    <Label htmlFor='email' value='Your email:' />
-                    <TextInput onChange={handleChange} type='email' id='email' placeholder='name@example.com' required />
-                    <Label htmlFor='password' value='Your password:' />
+                    <Label htmlFor='email' value='Your email:' className='text-gray-100' />
+                    <TextInput onChange={handleChange} type='email'  id='email' placeholder='name@example.com' required />
+                    <Label htmlFor='password' value='Your password:' className='text-gray-100' />
                     <TextInput onChange={handleChange} type='password' id='password'  required />
                     <Button  type='submit'>Login</Button>
-                    <span className='text-gray-400 text-sm'>Don't have an account? <Link to='/sign-up' className='text-lg hover:underline text-white'>Sign up</Link></span>
-                    <span className='text-center'>or sign in with</span>
+                    <span className='text-gray-400 text-xs md:text-sm'>Don't have an account? <Link to='/sign-up' className='text-md md:text-lg hover:underline text-white'>Sign up</Link></span>
+                    <span className='text-center text-sm md:text-lg'>or sign in with</span>
                     <Oauth />
                 </div>
             </div>

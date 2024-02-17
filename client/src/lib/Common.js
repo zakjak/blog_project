@@ -1,5 +1,5 @@
 export const postViews = async (postId) => {
-    const res = await fetch(`/api/post/views/${postId}/view`, {
+    const res = await fetch(`https://blog-site-dhug.onrender.com/api/post/views/${postId}/view`, {
       method: 'POST',
     })
   }

@@ -11,7 +11,7 @@ function Business() {
     useEffect(() => {
   
       const fetchData = async () => {
-          const res = await axios(`https://blog96.onrender.com/api/post/getPost?category=${category}&limit=4`)
+          const res = await axios(`https://blog-site-dhug.onrender.com/api/post/getPost?category=${category}&limit=4`)
           const data =  res.data
   
         if(res){

@@ -20,14 +20,14 @@ function Article() {
     }, [id])
 
     const getArticle = async () => {
-        const res = await fetch(`https://blog96.onrender.com/api/post/getPost?postId=${id}`)
+        const res = await fetch(`https://blog-site-dhug.onrender.com/api/post/getPost?postId=${id}`)
         const data = await res.json()
         setArticle(...data)
     }
 
     useEffect(() => {
         const getRelatedArticles = async () => {
-            const res = await fetch(`https://blog96.onrender.com/api/post/getPost?category=${article?.category}&&limits=3`)
+            const res = await fetch(`https://blog-site-dhug.onrender.com/api/post/getPost?category=${article?.category}&&limits=3`)
             const data = await res.json()
              if(res.ok){
                 const filtered = data.filter((post) => post._id !== article._id)
@@ -44,10 +44,9 @@ function Article() {
         })
     }
 
-    console.log(location)
 
   return (
-    <div className=' min-h-screen grid grid-cols-6 w-[90%] mx-auto'>
+    <div className=' min-h-screen grid lg:grid-cols-6 w-[90%] mx-auto'>
         {
             article && (
         <div className="pt-8 flex flex-col gap-2 md:col-span-4 col-span-6">
@@ -81,17 +80,17 @@ function Article() {
                         </div>
                         <div className="text-black relative dark:text-white text-xl">
                             <Dropdown dismissOnClick={false} className='absolute mt-' label='' renderTrigger={() => <span><CiShare2 className='cursor-pointer' /></span>}>
-                                <Dropdown.Item onClick={handleShareLink} className='text-lg text-white'><CiFacebook /> Facebook</Dropdown.Item>
-                                <Dropdown.Item className='text-lg text-white'><CiTwitter  /> X</Dropdown.Item>
-                                <Dropdown.Item className='text-lg text-white'><CiInstagram /> Instagram</Dropdown.Item>
+                                <Dropdown.Item onClick={handleShareLink} className='text-lg dark:text-white text-black'><CiFacebook /> Facebook</Dropdown.Item>
+                                <Dropdown.Item className='text-lg dark:text-white text-black'><CiTwitter  /> X</Dropdown.Item>
+                                <Dropdown.Item className='text-lg dark:text-white text-black'><CiInstagram /> Instagram</Dropdown.Item>
                             </Dropdown>
                         </div>
                     </div>
                     </div>
                 <hr className='opacity-30 mb-4' /> 
             </div>
-            <div className="w-[85%] h-[24rem] rounded-md overflow-hidden shadow-lg mx-auto">
-                <img className='w-full h-full object-cover' src={article.image} alt={article.title} />
+            <div className="w-[85%] h-[20%] md:h-[24rem] rounded-md overflow-hidden shadow-lg mx-auto">
+                <img className='w-full aspect-video object-cover h-full' src={article.image} alt={article.title} />
             </div>
             <article dangerouslySetInnerHTML={{__html: article.content}} className='article w-[85%] mx-auto'></article>
             {/* <CommentSection postId={article._id} /> */}
@@ -101,14 +100,20 @@ function Article() {
         {
             relatedArticles && (
                 <div className='mt-4 p-8 col-span-2 mx-8'>
-                    <h2 className='text-lg drop-shadow-lg mb-2'>Related articles</h2>
-                    <div className="flex flex-col gap-4">
-                        {
-                            relatedArticles.map((article) => (
-                                <Card key={article._id} post={article} />
-                            ))
-                            }
-                    </div>
+                    {
+                        relatedArticles.length > 0 && (
+                            <>
+                            <h2 className='text-lg drop-shadow-lg mb-2'>Related articles</h2>
+                            <div className="grid md:grid-cols-2 lg:grid-cols-1 gap-4">
+                                {
+                                    relatedArticles.map((article) => (
+                                        <Card key={article._id} post={article} />
+                                    ))
+                                    }
+                            </div>
+                            </>
+                        )
+                    }
                 </div>
             )
         }

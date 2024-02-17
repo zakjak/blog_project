@@ -1,11 +1,11 @@
-import { Button, Dropdown, Navbar, TextInput } from 'flowbite-react'
+import { Button, Dropdown, Navbar } from 'flowbite-react'
 import { Link, useNavigate, useLocation } from 'react-router-dom'
-import { IoIosSearch } from "react-icons/io";
 import { useDispatch, useSelector } from 'react-redux'
 import { toggleTheme } from '../redux/theme/themeSlice';
 import { FaMoon, FaSun } from 'react-icons/fa'
 import { useEffect, useState } from 'react';
 import { signOut } from '../redux/user/userSlice';
+import SearchInput from './SearchInput';
 
 function NavbarComponent() {
     const [searchInput, setSearchInput] = useState('')
@@ -28,7 +28,7 @@ function NavbarComponent() {
     }, [location.search])
 
     const handleSignOut = async () => {
-        const res = await fetch('https://blog96.onrender.com/api/auth/signout', {
+        const res = await fetch('https://blog-site-dhug.onrender.com/api/auth/signout', {
             method: 'POST'
         })
 
@@ -47,7 +47,7 @@ function NavbarComponent() {
             return;
         }
         const urlParams = new URLSearchParams(location.search)
-        console.log(urlParams)
+    
         urlParams.set('searchTerm', searchInput)
         const searchQuery = urlParams.toString()
         navigate(`/search?${searchQuery}`)
@@ -55,22 +55,22 @@ function NavbarComponent() {
 
   return (
     <Navbar className='w-full sticky top-0 z-50 h-16 shadow-md flex items-center'>
-        <Navbar.Brand as={Link} to='/'>
-            Gh Media
+        <Navbar.Brand as={Link} to='/' className='flex gap-1 text-lg'>
+            News <span className='font-bold'>Pulse</span>
         </Navbar.Brand>
-        <form onSubmit={handleSearch}>
-            <div className=" flex items-center h-8">
-                <TextInput value={searchInput} onChange={e => setSearchInput(e.target.value)} className='' type='search' placeholder='Search...' />
-                <Button type='submit' outline color='blak'><IoIosSearch type='submit' className='text-2xl'  /></Button>
-            </div>
-        </form>
+
+        <div className="hidden md:block">
+            <SearchInput searchInput={searchInput} handleSearch={handleSearch} setSearchInput={setSearchInput} />
+        </div>
+
         <div className="flex gap-2 items-center">
             <Button
                 className=' text-black flex h-10'
-                gradientDuoTone='purpleToPink'
+                // gradientDuoTone='purpleToPink'
                 onClick={() => dispatch(toggleTheme())}
+                color='dark'
             >
-                {theme === 'light' ? <FaSun /> : <FaMoon />}
+                {theme === 'light' ? <FaSun className='text-gray-300' /> : <FaMoon className='text-gray-300' />}
             </Button>
             {
                 currentUser ? (
