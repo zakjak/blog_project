@@ -15,7 +15,7 @@ function Search() {
             setLoading(true)
             const searchQuery = urlParams.toString()
             try{
-                const res = await axios.get(`https://blog-site-dhug.onrender.com/api/post/getPost?${searchQuery}`)
+                const res = await axios.get(`https://blog-project-sable.vercel.app/api/post/getPost?${searchQuery}`)
 
                 if(!res){
                     return

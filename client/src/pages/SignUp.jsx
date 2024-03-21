@@ -20,12 +20,13 @@ function SignUp() {
     const handleSubmit = async (e) => {
         e.preventDefault()
         try{
-            const res = await axios.post('https://blog-site-dhug.onrender.com/api/auth/signup', {
+            const res = await axios.post('https://blog-project-sable.vercel.app/api/auth/signup', {
                 headers: { 'Content-Type': "application/json" },
                 body: JSON.stringify(userData)
             })
     
             const data = await res.json()
+            console.log(data)
             if(!res.ok){
                 setError(data.message)
                 return

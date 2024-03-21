@@ -22,7 +22,7 @@ function SignIn() {
         e.preventDefault()
         try{
             dispatch(signInStart())
-            const res = await axios.post('https://blog-site-dhug.onrender.com/api/auth/signin', {
+            const res = await axios.post('https://blog-project-sable.vercel.app/api/auth/signin', {
                 headers: { 'Content-Type': "application/json" },
                 body: JSON.stringify(userData)
             })

@@ -9,12 +9,10 @@ function Profile() {
   const {currentUser} = useSelector(state => state.user)
   const [loading, setLoading] = useState(false)
 
-  console.log(currentUser._id)
-
   useEffect(() => {
     const getPosts = async() => {
       try{
-        const res = await fetch(`https://blog-site-dhug.onrender.com/api/post/getPost?userId=${currentUser._id}`)
+        const res = await fetch(`https://blog-project-sable.vercel.app/api/post/getPost?userId=${currentUser._id}`)
         const data = await res.json()
   
         if(res.ok){

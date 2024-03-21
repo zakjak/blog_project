@@ -11,12 +11,16 @@ function Business() {
     useEffect(() => {
   
       const fetchData = async () => {
-          const res = await axios(`https://blog-site-dhug.onrender.com/api/post/getPost?category=${category}&limit=4`)
+        try{
+          const res = await axios(`https://blog-project-sable.vercel.app/api/post/getPost?category=${category}&limit=4`)
           const data =  res.data
   
         if(res){
           setPosts(data)
         }  
+        }catch(err){
+          console.log(err)
+        }
       }
       fetchData()
     }, [category])

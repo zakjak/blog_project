@@ -66,7 +66,7 @@ function CreatePost() {
             return
         }
         try{
-            const res = await fetch('https://blog96.onrender.com/api/post/create', {
+            const res = await fetch('https://blog-project-sable.vercel.app/api/post/create', {
                 method: 'POST',
                 headers: {"Content-Type": 'application/json'},
                 body: JSON.stringify(data)
@@ -85,8 +85,6 @@ function CreatePost() {
         setFileInput(null)
         setFormData({...formData, fileInput})
     }
-
-    console.log(fileInput)
 
   return (
     <div className='w-full grid grid-cols-1 min-h-screen md:grid-cols-2'>

@@ -23,7 +23,7 @@ function Oauth() {
                     email: user.email
             }
             
-            const res= await fetch('https://blog-site-dhug.onrender.com/api/auth/google', {
+            const res= await fetch('https://blog-project-sable.vercel.app/api/auth/google', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(userInfo)

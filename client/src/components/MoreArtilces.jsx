@@ -10,7 +10,7 @@ function MoreArtilces({ topPosts }) {
   useEffect(() => {
 
     const fetchData = async () => {
-        const res = await fetch(`https://blog-site-dhug.onrender.com/api/post/getPost?limit=9`)
+        const res = await fetch(`https://blog-project-sable.vercel.app/api/post/getPost?limit=9`)
         const data = await res.json()
 
       if(res.ok){
@@ -26,7 +26,7 @@ function MoreArtilces({ topPosts }) {
     const startIndex = posts.length
     
     try{
-      const res = await fetch(`https://blog-site-dhug.onrender.com/api/post/getPost?startIndex=${startIndex}`)
+      const res = await fetch(`https://blog-project-sable.vercel.app/api/post/getPost?startIndex=${startIndex}`)
       const data = await res.json()
 
       if(res.ok){
